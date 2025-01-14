@@ -8,7 +8,7 @@
 <script>
     // Función para obtener el contenido HTML de un notebook
     async function openNotebook(notebookName) {
-        const response = await fetch(`http://127.0.0.1:5000/ver-notebook/${notebookName}`);
+        const response = await fetch(`https://api2-jiph.onrender.com/ver-notebook/${notebookName}`);
         const result = await response.json();
         const outputDiv = document.getElementById('output');
 
