@@ -4,39 +4,133 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Notebooks</title>
-    <link rel="stylesheet" href="/pagina/style.css"> <!-- Ruta al archivo CSS -->
-    <script>
-        // Función para obtener el contenido HTML de un notebook
-        async function openNotebook(notebookName) {
-            const response = await fetch(`/ver-notebook/${notebookName}`);
-            const result = await response.json();
-            const outputDiv = document.getElementById('output');
+    <link rel="stylesheet" href="/pagina/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
 
-            if (result.status === 'success') {
-                outputDiv.innerHTML = `<h3>Contenido de ${notebookName}</h3><div class="notebook-content">${result.output}</div>`;
-            } else {
-                outputDiv.innerHTML = `<h3>Error al cargar el notebook</h3><p>${result.message}</p>`;
+        h1 {
+            background-color: #4CAF50;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        button:focus {
+            outline: none;
+            box-shadow: 0 0 5px #4CAF50;
+        }
+
+        #output {
+            background: white;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        pre {
+            background: #f9f9f9;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 14px;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+    <script>
+        // Función para obtener las salidas de las celdas de código (texto e imágenes)
+        async function openNotebook(notebookName) {
+            try {
+                const response = await fetch(`/ver-notebook/${notebookName}`);
+                const result = await response.json();
+                const outputDiv = document.getElementById('output');
+
+                if (result.status === 'success') {
+                    // Crear una lista de resultados
+                    const resultsHTML = result.outputs
+                        .map((output, index) => {
+                            if (output.type === 'text') {
+                                // Mostrar salida de texto
+                                return `<pre><strong>Salida ${index + 1}:</strong>\n${output.content}</pre>`;
+                            } else if (output.type === 'image') {
+                                // Mostrar imagen codificada en Base64
+                                return `<div><strong>Gráfica ${index + 1}:</strong><br><img src="data:image/png;base64,${output.content}" alt="Gráfica"></div>`;
+                            }
+                        })
+                        .join('');
+
+                    outputDiv.innerHTML = `<h3>Resultados de ${notebookName}</h3>${resultsHTML}`;
+                } else {
+                    outputDiv.innerHTML = `<h3>Error al cargar el notebook</h3><p>${result.message}</p>`;
+                }
+            } catch (error) {
+                console.error('Error al obtener el notebook:', error);
+                document.getElementById('output').innerHTML = '<h3>Error al obtener el notebook</h3>';
             }
         }
-    </script>
+    </script>    
 </head>
 <body>
-    
     <h1>Notebooks Disponibles</h1>
-    <button onclick="openNotebook('3501-creacion-de-transformadores-y-Pipelines-Personalizados.ipynb')">Ver Transformadores y Pipelines</button>
-    <button onclick="openNotebook('3501_Evaluacion-de-Resultados.ipynb')">Ver Evaluación de Resultados</button>
-    <button onclick="openNotebook('3501_Preparacion-del-DataSet.ipynb')">Ver Preparación del Dataset</button>
-    <button onclick="openNotebook('3501_Regresion_Lineal.ipynb')">Ver Regresión Lineal</button>
-    <button onclick="openNotebook('3501_Visualizacion_de_datos.ipynb')">Ver Visualización de Datos</button>
-    <button onclick="openNotebook('Regresion_Logistica.ipynb')">Ver Regresión Logística</button>
-    <button onclick="openNotebook('3501_Support-Vector-Machine.ipynb')">Ver Support-Vector-Machine</button>
-    <button onclick="openNotebook('Arboles.ipynb')">Ver Arboles</button>
-    <button onclick="openNotebook('Regrecion_logisticaF.ipynb')">Regrecion_logisticaF</button>
-
-    <div id="output">
-        <h3>Contenido del notebook:</h3>
-        <div>Presiona un botón para ver el contenido aquí.</div>
+    <div class="container">
+        <div class="buttons">
+            <button onclick="openNotebook('3501-creacion-de-transformadores-y-Pipelines-Personalizados.ipynb')">Transformadores y Pipelines</button>
+            <button onclick="openNotebook('3501_Evaluacion-de-Resultados.ipynb')">Evaluación de Resultados</button>
+            <button onclick="openNotebook('3501_Preparacion-del-DataSet.ipynb')">Preparación del Dataset</button>
+            <button onclick="openNotebook('3501_Regresion_Lineal.ipynb')">Regresión Lineal</button>
+            <button onclick="openNotebook('3501_Visualizacion_de_datos.ipynb')">Visualización de Datos</button>
+            <button onclick="openNotebook('Regresion_Logistica.ipynb')">Regresión Logística</button>
+            <button onclick="openNotebook('3501_Support-Vector-Machine.ipynb')">Support-Vector-Machine</button>
+            <button onclick="openNotebook('Arboles.ipynb')">Árboles</button>
+            <button onclick="openNotebook('Regrecion_logisticaF.ipynb')">Regresión Logística (Final)</button>
+        </div>
+        <div id="output">
+            <h3>Resultados:</h3>
+            <div>Presiona un botón para ver los resultados aquí.</div>
+        </div>
     </div>
-
 </body>
 </html>
