@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejecutar Notebooks</title>
+<link rel="stylesheet" href="style.css"> 
+<script>
+    async function runNotebook(notebookName) {
+        const response = await fetch('http://127.0.0.1:5000/run-notebook', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ notebook_name: notebookName })
+        });
+
+        const result = await response.json();
+        const outputDiv = document.getElementById('output');
+
+        if (result.status === 'success') {
+            // Mostrar el resultado del notebook (incluyendo texto y gráficos)
+            outputDiv.innerHTML = `<h3>Resultado de ${notebookName}</h3><div class="markdown">${result.output}</div>`;
+        } else {
+            outputDiv.innerHTML = `<h3>Error al ejecutar ${notebookName}</h3><pre>${result.output}</pre>`;
+        }
+    }
+</script>
+</head>
+<body>
+    
+    <h1>API</h1>
+    <button onclick="runNotebook('3501-creacion-de-transformadores-y-Pipelines-Personalizados.ipynb')">Ejecutar Transformadores y Pipelines</button>
+    <button onclick="runNotebook('3501_Evaluacion-de-Resultados.ipynb')">Ejecutar Evaluación de Resultados</button>
+    <button onclick="runNotebook('3501_Preparacion-del-DataSet.ipynb')">Ejecutar Preparación del Dataset</button>
+    <button onclick="runNotebook('3501_Regresion_Lineal.ipynb')">Ejecutar Regresión Lineal</button>
+    <button onclick="runNotebook('3501_Visualizacion_de_datos.ipynb')">Ejecutar Visualización de Datos</button>
+    <button onclick="runNotebook('Regresion_Logistica.ipynb')">Ejecutar Regresión Logística</button>
+    <button onclick="runNotebook('3501_Support-Vector-Machine.ipynb')">3501_Support-Vector-Machine</button>
+    <button onclick="runNotebook('Arboles.ipynb')">Arboles</button>
+    <button onclick="runNotebook('Regrecion_logisticaF.ipynb')">Regrecion_logisticaF</button>
+
+
+    <div id="output">
+        <h3>Resultado de la ejecución:</h3>
+        <pre>Presiona un botón para ver el resultado aquí.</pre>
+    </div>
+</body>
+</html>

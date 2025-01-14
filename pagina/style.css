@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-image: url('/home/lia/Escritorio/api/image.jpg'); /* Aquí pones la ruta de tu imagen */
+    background-size: cover; /* Hace que la imagen cubra todo el fondo */
+    background-position: center center; /* Centra la imagen */
+    background-attachment: fixed; /* Hace que la imagen no se mueva al hacer scroll */
+}
+
+h1 {
+    font-size: 3em; /* Hacemos el título más grande */
+    margin-bottom: 20px;
+    color: white; /* Cambiamos el color a blanco */
+}
+
+button {
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    background-color: blueviolet;
+    color: black;
+    border: none;
+    border-radius: 5px;
+}
+
+button:hover {
+    background-color: purple;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;  /* Fondo blanco para el área de salida */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: #333;
+    text-align: left;
+    width: 80%;
+    margin-left: 10%;
+    max-height: 500px;  /* Ajusta según el tamaño deseado */
+    overflow-y: auto;  /* Permite el scroll */
+    padding-bottom: 20px;
+}
+
+pre {
+    background-color: #f4f4f4;
+    padding: 10px;
+    font-size: 16px;
+    color: #333;
+    overflow: auto;
+}
+
+.markdown img {
+    max-width: 100%;  /* Hace que las imágenes no se salgan del contenedor */
+    height: auto;
+}
+
+.markdown {
+    font-size: 18px;
+    color: #555;
+    line-height: 1.6;
+}
