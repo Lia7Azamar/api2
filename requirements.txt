@@ -1,5 +1,5 @@
 nbconvert
-jupy
+jupyter
 Flask==2.0.3
 gunicorn==20.1.0
 uvicorn==0.18.3
@@ -8,3 +8,5 @@ scikit-learn==1.0.2
 numpy==1.21.5
 matplotlib==3.5.1
 seaborn==0.11.2
+Cython
+scipy
