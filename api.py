@@ -5,9 +5,7 @@ import nbformat
 from nbconvert.preprocessors import ExecutePreprocessor
 import markdown
 
-if __name__ == '__main__':
-    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
-
+app = Flask(__name__)
 CORS(app)  # Habilitar CORS para todas las rutas
 
 ARCHIVOS_PATH = 'archivos'
@@ -74,4 +72,4 @@ def run_notebook():
     return jsonify(result)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=False, host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
