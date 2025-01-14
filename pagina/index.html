@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="style.css"> 
 <script>
     async function runNotebook(notebookName) {
-        const response = await fetch('http://127.0.0.1:5000/run-notebook', {
+        const response = await fetch('/run-notebook', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
